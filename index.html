@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anubi Creative Studio</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@latest/bundled/lenis.min.js"></script>
+  </head>
+  <body class="">
+    <!-- Your website content goes here -->
+    <header class="style_header" style="padding-top: 15px !important">
+      <div class="style_pageWrapper">
+        <div class="style_container style_pContainer">
+          <div class="style_inner">
+            <!-- right nav brand -->
+            <div class="style_logoContainer">
+              <a class="style_logoBox" href="/">
+                <img
+                  src="asset/anubilogo.svg"
+                  alt=""
+                  fetchpriority="high"
+                  width="64"
+                  height="64"
+                  decoding="async"
+                  data-nimg="1"
+                  style="color: transparent; max-width: 100%; height: auto"
+                />
+              </a>
+              <a class="style_brand" href="/">
+                <div class="style_brandTitle" translate="no">Anubi</div>
+                <div class="style_brandDescription">Creative Studio</div>
+              </a>
+            </div>
+            <div class="style_headerButton">
+              <a class="style_link" href="/">Lab</a>
+              <a class="style_link" href="/">Work</a>
+              <a
+                class="style_link btn btn-outline-secondary btn-rounded"
+                href="/"
+                style="border-radius: 25px"
+                >Contact</a
+              >
+            </div>
+            <div class="style_burgerWrapper">
+              <button class="style_burger">
+                <span class="style_burgerLine"></span>
+                <span class="style_burgerLine"></span>
+                <span class="style_burgerLine"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div style="height: var(--header-height)"></div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper">
+        <div class="style_container">
+          <section id="hero">
+            <div class="row">
+              <!-- Left Column -->
+              <div class="col" style="max-width: 50%">
+                <!-- Skeleton for Title -->
+                <div
+                  class="skeleton skeleton-text"
+                  style="height: 50px; width: 80%"
+                ></div>
+                <div
+                  class="skeleton skeleton-text"
+                  style="height: 50px; width: 60%"
+                ></div>
+                <div
+                  class="skeleton skeleton-text"
+                  style="height: 50px; width: 40%"
+                ></div>
+
+                <!-- Skeleton for Subtitle -->
+                <div
+                  class="skeleton skeleton-text"
+                  style="height: 20px; width: 90%"
+                ></div>
+                <div
+                  class="skeleton skeleton-text"
+                  style="height: 20px; width: 95%"
+                ></div>
+                <div
+                  class="skeleton skeleton-text"
+                  style="height: 20px; width: 85%"
+                ></div>
+
+                <!-- Skeleton for Buttons -->
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+
+                <!-- Actual Content (Hidden Initially) -->
+                <h1 class="style_heroTitle hidden">
+                  3D. <br />
+                  Video. <br />
+                  Web. <br />
+                </h1>
+                <h2 class="style_heroSubtitle hidden">
+                  Anubi is a creative studio specializing in art direction,
+                  video production, and digital experiences, with a focus on CGI
+                  and visual effects.
+                </h2>
+                <div class="hidden">
+                  <button class="btn btn-light btn-rounded style_buttonTags">
+                    motion
+                  </button>
+                  <button class="btn btn-light btn-rounded style_buttonTags">
+                    cgi
+                  </button>
+                  <button class="btn btn-light btn-rounded style_buttonTags">
+                    creative
+                  </button>
+                  <button class="btn btn-light btn-rounded style_buttonTags">
+                    digital
+                  </button>
+                  <button class="btn btn-light btn-rounded style_buttonTags">
+                    studio
+                  </button>
+                </div>
+              </div>
+
+              <!-- Right Column (Skeleton for Model) -->
+              <div class="col" style="max-width: 50%">
+                <div
+                  class="skeleton skeleton-box"
+                  style="height: 300px; width: 100%"
+                ></div>
+                <div id="modelContainer" class="hidden"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper">
+        <div
+          class="skeleton skeleton-box"
+          style="height: 300px; width: 600px"
+        ></div>
+        <div class="video-wrapper hidden">
+          <video
+            autoplay
+            loop
+            muted
+            src="asset/video.webm"
+            style="width: 100%; height: auto"
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper">
+        <div class="style_container">
+          <div class="brand-container">
+            <div class="brand-grid">
+              <img src="asset/brand1.webp" alt="Brand 1" />
+              <img src="asset/brand2.webp" alt="Brand 2" />
+              <img src="asset/brand3.webp" alt="Brand 3" />
+              <img src="asset/brand4.webp" alt="Brand 4" />
+              <img src="asset/brand5.webp" alt="Brand 5" />
+              <img src="asset/brand6.webp" alt="Brand 6" />
+              <img src="asset/brand7.webp" alt="Brand 7" />
+              <img src="asset/brand8.webp" alt="Brand 8" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper">
+        <div class="style_container text-center">
+          <h1 class="style_heroTitle2">
+            <span>Animation.</span> <span>3D.</span> <span>CGI.</span> <br />
+            <span>Advertising.</span> <span>Illustration.</span> <br />
+            <span>Visual</span> <span>Effects.</span> <br />
+            <span>Creative</span> <span>Web.</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper">
+        <div class="video-wrapper">
+          <video
+            autoplay
+            loop
+            muted
+            src="asset/video.webm"
+            style="width: 100%; height: auto"
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper">
+        <div class="style_container text-center">
+          <h1 class="style_heroTitle2">
+            <span>Animation.</span> <span>3D.</span> <span>CGI.</span> <br />
+            <span>Advertising.</span> <span>Illustration.</span> <br />
+            <span>Visual</span> <span>Effects.</span> <br />
+            <span>Creative</span> <span>Web.</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobileNav">
+      <div class="style_pageWrapper">
+        <div class="style_container" style="background-color: black">
+          <div class="col text-light pt-4 pb-2">
+            <div class="row mobileNavTitle">
+              <h3 class="fw-light">Menu</h3>
+            </div>
+            <div class="row style_heroSubtitle">
+              <h3 class="fw-light">Home</h3>
+            </div>
+            <div class="row style_heroSubtitle">
+              <h3 class="fw-light">Lab</h3>
+            </div>
+            <div class="row style_heroSubtitle">
+              <h3 class="fw-light">Work</h3>
+            </div>
+            <div class="row style_heroSubtitle">
+              <h3 class="fw-light">Contact</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+    <!-- Link to your JavaScript file -->
+  </body>
+</html>

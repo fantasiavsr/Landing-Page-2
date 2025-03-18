@@ -1,0 +1,123 @@
+.style_container__Xfo2l {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  height: 500px;
+  justify-content: center;
+  min-height: 500px;
+  padding-bottom: 40px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  width: 100%;
+}
+.style_container__Xfo2l .style_revealOnHover__J10si {
+  opacity: 0.1;
+  transition: all 0.5s;
+}
+.style_container__Xfo2l:hover .style_revealOnHover__J10si {
+  opacity: 1;
+}
+.style_pickerContainer__th1Dk {
+  bottom: 40px;
+  display: flex;
+  filter: grayscale(1);
+  justify-content: center;
+  left: 0;
+  opacity: 0.1;
+  position: absolute;
+  right: 0;
+  transition: all 0.3s;
+  width: 100%;
+}
+.style_pickerContainerSelected__HrzEJ {
+  filter: grayscale(0);
+  opacity: 1;
+}
+.style_pickerBorder__oRgO_ {
+  border: 1px solid #e0e0e0;
+  border-radius: 32px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.style_colorPicker__PeuVg {
+  cursor: pointer;
+  display: flex;
+  width: 20px;
+}
+.style_controls__8bhgq {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  width: 48px;
+}
+.style_leftControls__v7SXB {
+  left: 0;
+}
+.style_rightControls__LD7qJ {
+  right: 0;
+}
+.style_title__WogU_ {
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+.style_picker__3MGAS {
+  align-items: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  margin-bottom: 22px;
+  transition: all 0.2s;
+  width: 24px;
+}
+.style_pickerSelected__N6VlL {
+  border: 2px solid #1665ff;
+}
+.style_pickerColor__bl22c {
+  background-size: contain !important;
+  border-radius: 50%;
+  height: 14px;
+  width: 14px;
+}
+.style_horizontalDivider__3PWio {
+  border-top: 1px solid #e0e0e0;
+  height: 1px;
+  margin-bottom: 22px;
+  width: 32px;
+}
+.style_charTitle__YqwUN {
+  display: flex;
+  justify-content: flex-end;
+  left: 0;
+  padding-right: 36px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: rotate(10deg);
+  width: 100%;
+}
+.style_charTitleText__rjIf4 {
+  border: 1px solid #999;
+  border-radius: 64px;
+  color: #333;
+  font-size: 14px;
+  padding: 6px 18px;
+}
+@media (max-width: 779px) {
+  .style_container__Xfo2l .style_revealOnHover__J10si {
+    opacity: 1;
+  }
+  .style_container__Xfo2l {
+    height: 400px;
+    min-height: 400px;
+  }
+}
