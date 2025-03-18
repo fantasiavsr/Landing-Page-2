@@ -20,23 +20,6 @@ document.addEventListener("scroll", function () {
     videoWrapper.style.width = newWidth + "px";
 });
 
-
-const lenis = new Lenis({
-    duration: 0.8, // Lower value = more responsive scrolling
-    easing: (t) => 1 - Math.pow(1 - t, 3),
-    smooth: true,
-    direction: "vertical",
-    smoothTouch: false,
-    syncScroll: true,  // 🟢 Makes scrolling feel more real-time
-});
-
-function raf(time) {
-    lenis.raf(time);
-    window.requestAnimationFrame(raf); // 🟢 Ensures smoother refresh rates
-}
-
-window.requestAnimationFrame(raf);
-
 const header = document.querySelector("header");
 let lastScrollY = window.scrollY;
 
