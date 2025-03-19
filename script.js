@@ -213,19 +213,21 @@ function initThreeJS1() {
 
 function initThreeJS() {
     const modelContainer = document.getElementById("modelContainer");
-
     if (!modelContainer) return;
 
-    // Define adjustable model scaling factor
-    let modelScaleFactor = 1.2; // Change this value to adjust the model size
-
-    let scene, camera, renderer, controls, pointLight, modelLocation = "asset/iphone.glb";
+    let modelScaleFactor = 1.2;
+    let scene, camera, renderer, controls, pointLight;
+    let modelLocation = "asset/iphone.glb";
+    let mipmapEnvLocation = "asset/cayley_interior_4k.hdr";
 
     scene = new THREE.Scene();
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
     renderer.shadowMap.enabled = true;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
     modelContainer.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(
@@ -234,7 +236,7 @@ function initThreeJS() {
         1,
         1000
     );
-    camera.position.set(0, -50, 500); // x = left/right, y = up/down, z = forward/backward
+    camera.position.set(0, -50, 500);
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -249,42 +251,56 @@ function initThreeJS() {
     pointLight.position.set(200, 200, 200);
     scene.add(pointLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(200, 200, 200);
-    directionalLight.castShadow = true;
-    scene.add(directionalLight);
-
     const pivotGroup = new THREE.Group();
     scene.add(pivotGroup);
 
-    function loadModel() {
+    // Load HDR Environment
+    new THREE.RGBELoader().load(mipmapEnvLocation, function (hdrmap) {
+        hdrmap.mapping = THREE.EquirectangularReflectionMapping;
+        scene.environment = hdrmap; // Apply to scene
+
+        // Load Model AFTER HDR is applied
+        loadModel(hdrmap);
+    });
+
+    function loadModel(envMap) {
         if (modelLocation) {
             const loader = new THREE.GLTFLoader();
             loader.load(
                 modelLocation,
                 (gltf) => {
                     const model = gltf.scene;
+                    model.traverse((n) => {
+                        if (n.isMesh) {
+                            n.material.envMap = envMap; // Apply HDR to material
+                            n.material.needsUpdate = true;
+                        }
+                    });
                     pivotGroup.add(model);
                     fitModelToScene(model);
                 },
                 undefined,
                 (error) => {
                     console.error("Error loading model:", error);
-                    createFallbackSphere();
+                    createFallbackSphere(envMap);
                 }
             );
         } else {
-            createFallbackSphere();
+            createFallbackSphere(envMap);
         }
     }
 
-    function createFallbackSphere() {
+    function createFallbackSphere(envMap) {
         const ballGeo = new THREE.SphereGeometry(100, 64, 64);
         const ballMat = new THREE.MeshPhysicalMaterial({
             color: 0xff0000,
-            metalness: 0.5,
+            metalness: 0.9,
             roughness: 0.5,
+            clearCoat: 1,
+            clearCoatRoughness: 0.1,
+            envMap: envMap // Apply HDR to sphere
         });
+
         const ballMesh = new THREE.Mesh(ballGeo, ballMat);
         pivotGroup.add(ballMesh);
         fitModelToScene(ballMesh);
@@ -298,7 +314,7 @@ function initThreeJS() {
         object.position.sub(center);
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        const fitSize = 200; // Desired model size
+        const fitSize = 200;
         const scaleFactor = (fitSize / maxDim) * modelScaleFactor;
         object.scale.set(scaleFactor, scaleFactor, scaleFactor);
     }
@@ -316,10 +332,8 @@ function initThreeJS() {
         renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
     });
 
-    loadModel();
     animate();
 }
-
 
 
 
