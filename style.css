@@ -128,6 +128,11 @@ a {
   .style_heroTitle2 {
     font-size: 48px;
   }
+
+  .style_heroTitle3 .changing-text {
+    padding-top: 22px;
+    font-size: 42px !important;
+  }
 }
 
 @media (max-width: 666px) {
@@ -156,7 +161,7 @@ a {
 
   .style_heroTitle3 .changing-text {
     padding-top: 22px;
-    font-size: 42px !important;
+    font-size: 38px !important;
   }
 }
 
