@@ -70,9 +70,7 @@ document.addEventListener("scroll", function () {
     });
 });
 
-
-
-
+/* skeleton load */
 document.addEventListener("DOMContentLoaded", function () {
     // Disable scrolling completely
     /* document.documentElement.style.overflow = "hidden"; */
@@ -86,9 +84,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Disable all scroll events
-    window.addEventListener("scroll", disableScroll, { passive: false });
+    /* window.addEventListener("scroll", disableScroll, { passive: false });
     document.addEventListener("wheel", disableScroll, { passive: false });
-    document.addEventListener("touchmove", disableScroll, { passive: false });
+    document.addEventListener("touchmove", disableScroll, { passive: false }); */
 
     setTimeout(() => {
         // Hide skeletons
@@ -104,12 +102,12 @@ document.addEventListener("DOMContentLoaded", function () {
         /* document.body.style.position = ""; */
         /* document.body.style.width = ""; */
 
-        window.removeEventListener("scroll", disableScroll);
+        /* window.removeEventListener("scroll", disableScroll);
         document.removeEventListener("wheel", disableScroll);
-        document.removeEventListener("touchmove", disableScroll);
+        document.removeEventListener("touchmove", disableScroll); */
 
         // Initialize Three.js after skeleton disappears
-        initThreeJS();
+        /* initThreeJS(); */
     }, 1000); // Simulating 2s loading time
 });
 
