@@ -5,19 +5,31 @@ document.addEventListener("scroll", function () {
 
     // Disable animation if screen width is <= 768px (mobile size)
     if (screenWidth <= 768) {
-        videoWrapper.style.width = "100%"; // Keep full width on mobile
+        videoWrapper.style.width = "100vw"; // Keep full width on mobile
+        videoWrapper.style.borderRadius = "0";
         return; // Stop execution
     }
 
     // Define min and max width for larger screens
-    const minWidth = 600; // Minimum width in pixels
-    const maxWidth = screenWidth; // Maximum width as 100% of viewport width
+    /* const minWidth = 50; // Minimum width in pixels
+    const maxWidth = screenWidth; // Maximum width as 100% of viewport width */
+    const minVW = 46; // Start at 30vw (30% of screen width)
+    const maxVW = 100; // Expand to 100vw (full screen)
+    const minRadius = 23; // Start with 23px border-radius
+    const maxRadius = 0; // Reduce to 0px when fullscreen
 
     // Calculate new width dynamically based on scroll
-    let newWidth = Math.min(maxWidth, Math.max(minWidth, (30 + scrollY / 10) * screenWidth / 100));
+    /* let newWidth = Math.min(maxWidth, Math.max(minWidth, (30 + scrollY / 10) * screenWidth / 100)); */
+    let newVW = Math.min(maxVW, Math.max(minVW, minVW + scrollY / 10));
+
+    // Calculate border-radius dynamically based on progress
+    let progress = (newVW - minVW) / (maxVW - minVW); // Normalize progress (0 to 1)
+    let newRadius = minRadius * (1 - progress); // Decrease radius gradually
 
     // Apply the calculated width
-    videoWrapper.style.width = newWidth + "px";
+    /* videoWrapper.style.width = newWidth + "px"; */
+    videoWrapper.style.width = newVW + "vw";
+    videoWrapper.style.borderRadius = newRadius + "px";
 });
 
 const header = document.querySelector("header");
@@ -49,12 +61,12 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("scroll", function () {
     const words = document.querySelectorAll(".style_heroTitle2 span");
     const windowHeight = window.innerHeight;
-    
+
     words.forEach((word, index) => {
         const wordPosition = word.getBoundingClientRect().top;
 
         // Dynamically adjust thresholds based on index
-        const baseThreshold = 1.1; // Starting threshold
+        const baseThreshold = 1; // Starting threshold
         const step = 0.05; // How much each word's threshold changes
 
         const threshold1 = windowHeight * (baseThreshold - index * step);
@@ -302,20 +314,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let index = 0;
 
     function changeText() {
-      texts.forEach((text, i) => {
-        text.classList.remove("visible"); // Hide all texts initially
-      });
+        texts.forEach((text, i) => {
+            text.classList.remove("visible"); // Hide all texts initially
+        });
 
-      // Add the 'visible' class to the current text
-      texts[index].classList.add("visible");
+        // Add the 'visible' class to the current text
+        texts[index].classList.add("visible");
 
-      // Move to the next index
-      index = (index + 1) % texts.length; // Cycle index
+        // Move to the next index
+        index = (index + 1) % texts.length; // Cycle index
     }
 
     setInterval(changeText, 3000); // Change every 3 seconds
     changeText(); // Initialize
-  });
+});
 
 
 

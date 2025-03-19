@@ -410,12 +410,23 @@ header {
 }
 
 .video-wrapper {
-  width: 600px; /* Start small */
+  width: 46vw; /* Start small */
   max-width: 100%; /* Prevent it from exceeding the container */
   margin: 0 auto 0 auto; /* Center it */
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 23px;
   transition: width 0.1s linear; /* Smooth continuous scaling */
+}
+
+.video-wrapperEx {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  position: relative;
+  width: 100%;
 }
 
 .image-wrapper {
@@ -477,8 +488,8 @@ header {
 }
 
 .video-wrapper video {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -490,11 +501,11 @@ header {
 /* Show burger menu when screen width is 768px or smaller */
 @media screen and (max-width: 768px) {
   .video-wrapper {
-    width: 100%; /* Start small */
-    max-width: 100%; /* Prevent it from exceeding the container */
+    width: 100vw; /* Start small */
+     /* Prevent it from exceeding the container */
     margin: 0 auto 0 auto; /* Center it */
     /* overflow: hidden; */
-    border-radius: 12px;
+    border-radius: 0px;
     transition: width 0.1s linear; /* Smooth continuous scaling */
   }
 
@@ -869,5 +880,4 @@ header {
   .btn-action {
     padding: 12px 21px !important;
   }
-  
 }
