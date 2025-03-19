@@ -49,20 +49,28 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("scroll", function () {
     const words = document.querySelectorAll(".style_heroTitle2 span");
     const windowHeight = window.innerHeight;
-
+    
     words.forEach((word, index) => {
         const wordPosition = word.getBoundingClientRect().top;
 
-        // 0.8 is the percentage of the viewport height
-        if (wordPosition < windowHeight * 0.8) {
-            setTimeout(() => {
-                word.classList.add("visible");
-            }, index * 150); // Delay effect per word
+        // Dynamically adjust thresholds based on index
+        const baseThreshold = 1.1; // Starting threshold
+        const step = 0.05; // How much each word's threshold changes
+
+        const threshold1 = windowHeight * (baseThreshold - index * step);
+        const threshold2 = windowHeight * (baseThreshold - index * step - 0.2); // Second threshold, slightly lower
+
+        if (wordPosition < threshold2) {
+            word.style.opacity = "1"; // Fully visible
+        } else if (wordPosition < threshold1) {
+            word.style.opacity = "0.5"; // Half visible
         } else {
-            word.classList.remove("visible"); // Remove when scrolling up
+            word.style.opacity = "0.05"; // Barely visible
         }
     });
 });
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -102,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Initialize Three.js after skeleton disappears
         initThreeJS();
-    }, 2000); // Simulating 2s loading time
+    }, 1000); // Simulating 2s loading time
 });
 
 function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFactor) {

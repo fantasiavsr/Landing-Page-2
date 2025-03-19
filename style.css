@@ -80,7 +80,7 @@ a {
   font-optical-sizing: auto !important;
   font-style: normal !important;
   color: #222222d7 !important;
-  font-size: 96px;
+  font-size: 72px;
   font-weight: 700 !important;
   line-height: 126% !important;
   padding: 12px 0 !important;
@@ -166,7 +166,7 @@ a {
 }
 
 .style_heroTitle2 span {
-  opacity: 0;
+  opacity: 0.05;
   transform: translateY(20px); /* Initial state */
   transition: opacity 0.6s ease, transform 0.6s ease;
   display: inline-block;
