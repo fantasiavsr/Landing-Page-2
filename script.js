@@ -54,6 +54,7 @@ document.addEventListener("scroll", function () {
         const wordPosition = word.getBoundingClientRect().top;
 
         // 0.8 is the percentage of the viewport height
+        // 0.8 is the percentage of the viewport height
         if (wordPosition < windowHeight * 0.8) {
             setTimeout(() => {
                 word.classList.add("visible");
@@ -69,6 +70,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disable scrolling completely
     /* document.documentElement.style.overflow = "hidden"; */
     /* document.body.style.overflow = "hidden"; */
+    /* document.body.style.height = "100vh"; */
+    /* document.body.style.position = "fixed"; */
+    /* document.body.style.width = "100%"; */
     /* document.body.style.height = "100vh"; */
     /* document.body.style.position = "fixed"; */
     /* document.body.style.width = "100%"; */
@@ -95,6 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
         /* document.body.style.height = ""; */
         /* document.body.style.position = ""; */
         /* document.body.style.width = ""; */
+        /* document.body.style.height = ""; */
+        /* document.body.style.position = ""; */
+        /* document.body.style.width = ""; */
 
         window.removeEventListener("scroll", disableScroll);
         document.removeEventListener("wheel", disableScroll);
@@ -117,6 +124,7 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
     renderer.shadowMap.enabled = true;
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -129,8 +137,8 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
         modelContainer.clientWidth / modelContainer.clientHeight,
         1,
         1000
-    );
-    camera.position.set(0, -50, 500);
+    ); // Field of view, aspect ratio, near, far
+    camera.position.set(0, -50, 500); // x = left/right, y = up/down, z = forward/backward
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -205,11 +213,13 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
-        object.position.sub(center);
+        object.position.sub(center); // Center the model
 
+        // Scale the object proportionally
         const maxDim = Math.max(size.x, size.y, size.z);
         const fitSize = 200;
         const scaleFactor = (fitSize / maxDim) * modelScaleFactor;
+
 
         object.scale.set(scaleFactor, scaleFactor, scaleFactor);
         object.position.y += 50;

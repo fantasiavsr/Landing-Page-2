@@ -56,6 +56,7 @@ html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-x: hidden;
   /* overflow: hidden; */
 }
 
@@ -125,12 +126,20 @@ a {
     font-size: 128px;
   }
 
+  .style_heroTitle {
+    font-size: 128px;
+  }
+
   .style_heroTitle2 {
     font-size: 48px;
   }
 }
 
 @media (max-width: 666px) {
+  .style_heroTitle {
+    font-size: 76px;
+  }
+
   .style_heroTitle {
     font-size: 76px;
   }
@@ -169,6 +178,7 @@ a {
 
 .style_heroTitle2 span.visible {
   opacity: 1;
+  transform: translateY(0); /* Final state */
   transform: translateY(0); /* Final state */
 }
 
@@ -250,10 +260,23 @@ header {
   margin: 0;
   /* padding-left: 24px; */
   /* padding-right: 24px; */
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+}
+
+.style_pageWrapper2 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  /* padding-left: 24px; */
+  /* padding-right: 24px; */
   width: 100%;
 }
 
 @media (max-width: 1199px) {
+  .style_container {
   .style_container {
     max-width: var(--tablet-page-max-width);
     padding: var(--tablet-page-padding);
@@ -616,8 +639,16 @@ header {
 .brand-grid img {
   width: 100%;
   opacity: 0.8; /* Slightly transparent */
+  opacity: 0.8; /* Slightly transparent */
   height: auto;
   object-fit: contain;
+  transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+  transition: transform 0.5s ease-in-out; /* Smooth scale effect */
+}
+
+.brand-grid img:hover {
+  opacity: 1; /* Reduce opacity on hover */
+  transform: scale(1.1); /* Slightly increase size */
   transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
   transition: transform 0.5s ease-in-out; /* Smooth scale effect */
 }
