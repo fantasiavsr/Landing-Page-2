@@ -106,17 +106,16 @@ a {
   }
 }
 
-
 .style_heroTitle2 span {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(20px);  /* Initial state */
   transition: opacity 0.6s ease, transform 0.6s ease;
   display: inline-block;
 }
 
 .style_heroTitle2 span.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0); /* Final state */
 }
 
 .style_heroSubtitle {
@@ -173,7 +172,18 @@ header {
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 0;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+}
+
+.style_pageWrapper2 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  /* padding-left: 24px; */
+  /* padding-right: 24px; */
   width: 100%;
 }
 
@@ -202,6 +212,7 @@ header {
   padding-left: 24px;
   width: var(--page-width) !important;
   box-sizing: content-box !important;
+  /* margin: 20px auto !important;  *//* Adjust as needed */
 }
 
 @media (max-width: 779px) {
@@ -304,20 +315,6 @@ header {
   width: fit-content !important;
 }
 
-/* .style_headerButton {
-  align-items: center !important;
-  border-radius: 4px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  font-weight: 600 !important;
-  justify-content: center !important;
-  letter-spacing: -0.01rem !important;
-  line-height: 100% !important;
-  margin-left: 16px !important;
-  padding: 10px 24px !important;
-  text-align: center !important;
-  transition: all 0.2s !important;
-} */
 
 #modelContainer {
   width: 100% !important;
@@ -335,8 +332,8 @@ header {
   width: 600px; /* Start small */
   max-width: 100%; /* Prevent it from exceeding the container */
   margin: 0 auto 0 auto; /* Center it */
-  /* overflow: hidden; */
-  border-radius: 12px;
+  overflow: hidden;
+  border-radius: 15px;
   transition: width 0.1s linear; /* Smooth continuous scaling */
 }
 
@@ -484,8 +481,16 @@ header {
 
 .brand-grid img {
   width: 100%;
+  opacity: 0.8; /* Slightly transparent */
   height: auto;
   object-fit: contain;
+  transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+  transition: transform 0.5s ease-in-out; /* Smooth scale effect */
+}
+
+.brand-grid img:hover {
+  opacity: 1; /* Reduce opacity on hover */
+  transform: scale(1.1); /* Slightly increase size */
 }
 
 /* Responsive Adjustments */
@@ -539,4 +544,54 @@ header {
   to {
     background-position: 200% 0;
   }
+}
+
+.ui-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.modelContainer:hover .ui-panel {
+  opacity: 1;
+}
+.ui-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+.ui-icon:hover {
+  color: #ffcc00;
+}
+
+.icon {
+  font-size: 24px;
+  font-variation-settings: 'FILL' 0; /* Default outlined */
+}
+
+/* Use these classes to switch */
+.filled {
+  font-variation-settings: 'FILL' 1; /* Filled */
+}
+
+.rounded {
+  font-family: 'Material Symbols Rounded'; /* Rounded */
+}
+
+.sharp {
+  font-family: 'Material Symbols Sharp'; /* Sharp */
+}
+
+.material-symbols-outlined {
+  cursor: pointer; /* Change to a hand cursor */
+  user-select: none; /* Prevent text selection */
+  display: inline-flex; /* Ensure proper alignment */
+  align-items: center;
+  justify-content: center;
 }

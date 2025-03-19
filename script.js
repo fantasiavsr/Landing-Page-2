@@ -53,6 +53,7 @@ document.addEventListener("scroll", function () {
     words.forEach((word, index) => {
         const wordPosition = word.getBoundingClientRect().top;
 
+        // 0.8 is the percentage of the viewport height
         if (wordPosition < windowHeight * 0.8) {
             setTimeout(() => {
                 word.classList.add("visible");
@@ -104,108 +105,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 2000); // Simulating 2s loading time
 });
 
-
-function initThreeJS1() {
-    const modelContainer = document.getElementById("modelContainer");
-
-    // Ensure container is visible before setting up Three.js
-    if (!modelContainer) return;
-
-    // Create scene
-    const scene = new THREE.Scene();
-
-    // Set up camera
-    const camera = new THREE.PerspectiveCamera(
-        12,
-        modelContainer.clientWidth / modelContainer.clientHeight,
-        1,
-        500
-    );
-    camera.position.set(0, 25, 25);
-
-    // Set up renderer
-    const renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-    });
-    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    modelContainer.appendChild(renderer.domElement);
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-    scene.add(ambientLight);
-    const sunLight = new THREE.DirectionalLight(0xfffbe1, 4);
-    sunLight.position.set(10, 50, 20);
-    sunLight.castShadow = true;
-    scene.add(sunLight);
-    const skyLight = new THREE.HemisphereLight(0xcce6ff, 0xffffff, 1);
-    scene.add(skyLight);
-    const bottomLight = new THREE.PointLight(0xffcc88, 2, 100);
-    bottomLight.position.set(-4, -10, 0);
-    scene.add(bottomLight);
-
-    // Controls
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.enableZoom = false;
-    controls.minPolarAngle = Math.PI / 4;
-    controls.maxPolarAngle = Math.PI / 3;
-
-    // Load GLTF model
-    const loader = new THREE.GLTFLoader();
-    const pivotGroup = new THREE.Group();
-    scene.add(pivotGroup);
-
-    loader.load("asset/iphone.glb", (gltf) => {
-        const model = gltf.scene;
-        scaleValue = 0.5;
-        model.scale.set(scaleValue, scaleValue, scaleValue);
-        model.traverse(n => {
-            if (n.isMesh) {
-                n.castShadow = true;
-                n.receiveShadow = true;
-            }
-        });
-
-        // Center the model
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center);
-
-        pivotGroup.add(model);
-        animate();
-    });
-
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-        pivotGroup.rotation.y += 0.005;
-        controls.update();
-        renderer.render(scene, camera);
-    }
-
-    // Handle resize
-    window.addEventListener("resize", () => {
-        camera.aspect = modelContainer.clientWidth / modelContainer.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
-    });
-}
-
 function initThreeJS() {
     const modelContainer = document.getElementById("modelContainer");
     if (!modelContainer) return;
 
-    let modelScaleFactor = 1.2;
+    let modelScaleFactor = 1.4;
     let scene, camera, renderer, controls, pointLight;
     let modelLocation = "asset/iphone.glb";
-    let mipmapEnvLocation = "asset/cayley_interior_4k.hdr";
+    let mipmapEnvLocation = "asset/cayley_interior_1k.hdr";
+    let isRotating = true; // Rotation state
 
     scene = new THREE.Scene();
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
     renderer.shadowMap.enabled = true;
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -218,8 +131,8 @@ function initThreeJS() {
         modelContainer.clientWidth / modelContainer.clientHeight,
         1,
         1000
-    );
-    camera.position.set(0, -50, 500);
+    ); // Field of view, aspect ratio, near, far
+    camera.position.set(0, -50, 500); // x = left/right, y = up/down, z = forward/backward
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -274,18 +187,23 @@ function initThreeJS() {
     }
 
     function createFallbackSphere(envMap) {
-        const ballGeo = new THREE.SphereGeometry(100, 64, 64);
+        const ballGeo = new THREE.SphereGeometry(50, 32, 32); // Smaller sphere for testing
         const ballMat = new THREE.MeshPhysicalMaterial({
             color: 0xff0000,
             metalness: 0.9,
             roughness: 0.5,
             clearCoat: 1,
             clearCoatRoughness: 0.1,
-            envMap: envMap // Apply HDR to sphere
+            envMap: envMap
         });
 
         const ballMesh = new THREE.Mesh(ballGeo, ballMat);
-        pivotGroup.add(ballMesh);
+
+        // Ensure the ball is centered in pivotGroup
+        ballMesh.position.set(0, 0, 0);
+
+        pivotGroup.add(ballMesh); // Add to rotating group
+
         fitModelToScene(ballMesh);
     }
 
@@ -294,25 +212,68 @@ function initThreeJS() {
         const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3());
 
-        object.position.sub(center);
+        object.position.sub(center); // Center the model
 
+        // Scale the object proportionally
         const maxDim = Math.max(size.x, size.y, size.z);
         const fitSize = 200;
         const scaleFactor = (fitSize / maxDim) * modelScaleFactor;
+
         object.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+        // Move the model slightly up
+        object.position.y += 50; // Adjust this value as needed
+
+        pivotGroup.add(object);
     }
+
+
+    let rotationDirection = 1; // 1 for right, -1 for left
+    // 1 = 180 degrees, 0.5 = 90 degrees, 2 = 360 degrees, etc.
+    const minRotation = -Math.PI / 0.5;
+    const maxRotation = Math.PI / 0.5; 
+    //if want not limit rotation
+    /* const minRotation = -Infinity;
+    const maxRotation = Infinity; */
+    // disable rotation
+    /* isRotating = false; */
+
+    const rotationSpeed = 0.002;
 
     function animate() {
         requestAnimationFrame(animate);
-        pivotGroup.rotation.y += 0.005;
+
+        if (isRotating) {
+            pivotGroup.rotation.y += rotationSpeed * rotationDirection;
+
+            // Reverse direction when hitting limits
+            if (pivotGroup.rotation.y >= maxRotation || pivotGroup.rotation.y <= minRotation) {
+                rotationDirection *= -1; // Reverse the rotation direction
+            }
+        }
+
         controls.update();
         renderer.render(scene, camera);
     }
+
 
     window.addEventListener("resize", () => {
         camera.aspect = modelContainer.clientWidth / modelContainer.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+    });
+
+    // ** UI Panel Controls **
+    document.getElementById("zoomCamera").addEventListener("click", () => {
+        if (pivotGroup.scale.x === 1) {
+            pivotGroup.scale.set(1.5, 1.5, 1.5); // Scale up 2x
+        } else {
+            pivotGroup.scale.set(1, 1, 1); // Reset to default scale
+        }
+    });
+
+    document.getElementById("toggleRotation").addEventListener("click", () => {
+        isRotating = !isRotating;
     });
 
     animate();
