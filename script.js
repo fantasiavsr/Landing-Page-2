@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disable scrolling completely
     /* document.documentElement.style.overflow = "hidden"; */
     /* document.body.style.overflow = "hidden"; */
-    document.body.style.height = "100vh";
-    document.body.style.position = "fixed";
-    document.body.style.width = "100%";
+    /* document.body.style.height = "100vh"; */
+    /* document.body.style.position = "fixed"; */
+    /* document.body.style.width = "100%"; */
 
     function disableScroll(event) {
         event.preventDefault();
@@ -91,9 +91,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // Re-enable scrolling
         /* document.documentElement.style.overflow = ""; */
         /* document.body.style.overflow = ""; */
-        document.body.style.height = "";
-        document.body.style.position = "";
-        document.body.style.width = "";
+        /* document.body.style.height = ""; */
+        /* document.body.style.position = ""; */
+        /* document.body.style.width = ""; */
 
         window.removeEventListener("scroll", disableScroll);
         document.removeEventListener("wheel", disableScroll);

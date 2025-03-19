@@ -55,6 +55,7 @@ html {
   font-family: var(--text);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   /* overflow: hidden; */
 }
 
@@ -86,22 +87,25 @@ a {
 }
 
 @media (max-width: 1300px) {
+  .style_heroTitle {
+    font-size: 128px;
+  }
+
   .style_heroTitle2 {
     font-size: 48px;
   }
 }
 
 @media (max-width: 666px) {
+  .style_heroTitle {
+    font-size: 76px;
+  }
+
   .style_heroTitle2 {
     font-size: 26px !important;
   }
 }
 
-@media (max-width: 999px) {
-  .style_heroTitle {
-    font-size: 124px !important;
-  }
-}
 
 .style_heroTitle2 span {
   opacity: 0;
@@ -174,7 +178,7 @@ header {
 }
 
 @media (max-width: 1199px) {
-  .style_container__R586d {
+  .style_container {
     max-width: var(--tablet-page-max-width);
     padding: var(--tablet-page-padding);
     padding-top: 0px;
@@ -496,44 +500,43 @@ header {
 
 /* Skeleton Base */
 .skeleton {
-    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite linear;
-    border-radius: 8px;
-    display: block;
-    margin-bottom: 10px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Different Sizes */
+.skeleton-text {
+  height: 20px;
+  width: 100%;
+}
+
+.skeleton-button {
+  height: 40px;
+  width: 100px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.skeleton-box {
+  height: 300px;
+  width: 100%;
+}
+
+/* Hide Actual Content Initially */
+.hidden {
+  display: none;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
   }
-  
-  /* Different Sizes */
-  .skeleton-text {
-    height: 20px;
-    width: 100%;
+  to {
+    background-position: 200% 0;
   }
-  
-  .skeleton-button {
-    height: 40px;
-    width: 100px;
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  .skeleton-box {
-    height: 300px;
-    width: 100%;
-  }
-  
-  /* Hide Actual Content Initially */
-  .hidden {
-    display: none;
-  }
-  
-  /* Shimmer Effect */
-  @keyframes shimmer {
-    from {
-      background-position: -200% 0;
-    }
-    to {
-      background-position: 200% 0;
-    }
-  }
-  
+}
