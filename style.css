@@ -55,6 +55,7 @@ html {
   font-family: var(--text);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   /* overflow: hidden; */
 }
 
@@ -85,41 +86,97 @@ a {
   padding: 12px 0 !important;
 }
 
+.changing-text {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(-100%); /* Start off-screen (top) */
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.style_heroTitle3 {
+  font-family: "Epilogue", sans-serif !important;
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+  color: #222222d7 !important;
+  font-size: 66px;
+  font-weight: 700 !important;
+  line-height: 126% !important;
+  padding: 12px 0 !important;
+  position: relative; /* Needed for absolute text stacking */
+  height: 100px; /* Prevent jumping effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.style_heroTitle4 {
+  font-family: "Epilogue", sans-serif !important;
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+  color: #222 !important;
+  font-size: 46px;
+  font-weight: 600 !important;
+  line-height: 92% !important;
+  padding: 12px 0 !important;
+}
+
 @media (max-width: 1300px) {
+  .style_heroTitle {
+    font-size: 128px;
+  }
+
   .style_heroTitle2 {
     font-size: 48px;
   }
 }
 
 @media (max-width: 666px) {
+  .style_heroTitle {
+    font-size: 76px;
+  }
+
   .style_heroTitle2 {
     font-size: 26px !important;
   }
+
+  .style_heroTitle3 .changing-text {
+    padding-top: 16px;
+    font-size: 36px !important;
+  }
 }
 
-@media (max-width: 999px) {
+@media (max-width: 767px) {
   .style_heroTitle {
-    font-size: 124px !important;
+    font-size: 76px;
+  }
+
+  .style_heroTitle2 {
+    font-size: 26px !important;
+  }
+
+  .style_heroTitle3 .changing-text {
+    padding-top: 22px;
+    font-size: 42px !important;
   }
 }
 
 .style_heroTitle2 span {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(20px); /* Initial state */
   transition: opacity 0.6s ease, transform 0.6s ease;
   display: inline-block;
 }
 
 .style_heroTitle2 span.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0); /* Final state */
 }
 
 .style_heroSubtitle {
   font-family: "Epilogue", sans-serif;
   font-optical-sizing: auto !important;
   font-style: normal !important;
-  font-size: 1.1rem !important;
+  font-size: 1.3rem !important;
   font-weight: 400 !important;
 }
 
@@ -127,6 +184,18 @@ a {
   color: rgb(131, 131, 131) !important;
   background-color: rgb(249, 249, 249) !important;
   border-radius: 25px !important;
+}
+
+.style_buttonTags2 {
+  color: rgb(131, 131, 131) !important;
+  background-color: rgb(249, 249, 249) !important;
+  border-radius: 25px !important;
+}
+
+@media (max-width: 720px) {
+  .style_buttonTags2 {
+    visibility: hidden;
+  }
 }
 
 .style_header,
@@ -169,12 +238,23 @@ header {
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 0;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+}
+
+.style_pageWrapper2 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  /* padding-left: 24px; */
+  /* padding-right: 24px; */
   width: 100%;
 }
 
 @media (max-width: 1199px) {
-  .style_container__R586d {
+  .style_container {
     max-width: var(--tablet-page-max-width);
     padding: var(--tablet-page-padding);
     padding-top: 0px;
@@ -198,6 +278,7 @@ header {
   padding-left: 24px;
   width: var(--page-width) !important;
   box-sizing: content-box !important;
+  /* margin: 20px auto !important;  */ /* Adjust as needed */
 }
 
 @media (max-width: 779px) {
@@ -300,24 +381,15 @@ header {
   width: fit-content !important;
 }
 
-/* .style_headerButton {
-  align-items: center !important;
-  border-radius: 4px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  font-weight: 600 !important;
-  justify-content: center !important;
-  letter-spacing: -0.01rem !important;
-  line-height: 100% !important;
-  margin-left: 16px !important;
-  padding: 10px 24px !important;
-  text-align: center !important;
-  transition: all 0.2s !important;
-} */
-
 #modelContainer {
   width: 100% !important;
   height: 500px !important;
+}
+
+#modelContainer2 {
+  width: 100%;
+  height: 500px;
+  /* position: relative; */
 }
 
 @media screen and (max-width: 768px) {
@@ -325,14 +397,77 @@ header {
   #modelContainer {
     display: none;
   }
+
+  #modelContainer2 {
+    /* display: none; */
+    height: 300px;
+  }
 }
 
 .video-wrapper {
   width: 600px; /* Start small */
   max-width: 100%; /* Prevent it from exceeding the container */
   margin: 0 auto 0 auto; /* Center it */
-  /* overflow: hidden; */
-  border-radius: 12px;
+  overflow: hidden;
+  border-radius: 15px;
+  transition: width 0.1s linear; /* Smooth continuous scaling */
+}
+
+.image-wrapper {
+  margin: 0 auto 0 auto; /* Center it */
+  overflow: hidden;
+  border-radius: 24px;
+  transition: width 0.1s linear; /* Smooth continuous scaling */
+  flex-direction: column !important;
+  height: 100% !important;
+  max-width: var(--page-max-width) !important;
+  width: var(--page-width) !important;
+  box-sizing: content-box !important;
+  flex: 0 0 auto; /* Prevent resizing */
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.scrolling-wrapper {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  max-width: var(--page-max-width);
+  width: var(--page-width) !important;
+  gap: 20px;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+
+  /* Hide scrollbar (Works on WebKit browsers like Chrome, Safari) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+
+  /* Hide scrollbar for IE/Edge */
+  -ms-overflow-style: none;
+}
+
+.video-wrapper2 {
+  max-width: 100%; /* Prevent it from exceeding the container */
+  margin: 0 auto 0 auto; /* Center it */
+  overflow: hidden;
+  border-radius: 15px;
+  transition: width 0.1s linear; /* Smooth continuous scaling */
+}
+
+.video-wrapper2 video {
+  max-width: 100%; /* Prevent it from exceeding the container */
+  margin: 0 auto 0 auto; /* Center it */
+  overflow: hidden;
+  border-radius: 15px;
   transition: width 0.1s linear; /* Smooth continuous scaling */
 }
 
@@ -472,16 +607,24 @@ header {
 .brand-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Always 4 items in the first row */
-  gap: 16px;
-  max-width: 1200px; /* Optional, keeps it centered */
+  gap: 45px;
+  max-width: 1000px; /* Optional, keeps it centered */
   margin: 0 auto; /* Center the grid */
   padding: 20px;
 }
 
 .brand-grid img {
   width: 100%;
+  opacity: 0.8; /* Slightly transparent */
   height: auto;
   object-fit: contain;
+  transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+  transition: transform 0.5s ease-in-out; /* Smooth scale effect */
+}
+
+.brand-grid img:hover {
+  opacity: 1; /* Reduce opacity on hover */
+  transform: scale(1.1); /* Slightly increase size */
 }
 
 /* Responsive Adjustments */
@@ -496,44 +639,230 @@ header {
 
 /* Skeleton Base */
 .skeleton {
-    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite linear;
-    border-radius: 8px;
-    display: block;
-    margin-bottom: 10px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Different Sizes */
+.skeleton-text {
+  height: 20px;
+  width: 100%;
+}
+
+.skeleton-button {
+  height: 40px;
+  width: 100px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.skeleton-box {
+  height: 300px;
+  width: 100%;
+}
+
+/* Hide Actual Content Initially */
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+.hidden.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.ui-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.modelContainer:hover .ui-panel {
+  opacity: 1;
+}
+.ui-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+.ui-icon:hover {
+  color: #ffcc00;
+}
+
+.icon {
+  font-size: 24px;
+  font-variation-settings: "FILL" 0; /* Default outlined */
+}
+
+/* Use these classes to switch */
+.filled {
+  font-variation-settings: "FILL" 1; /* Filled */
+}
+
+.rounded {
+  font-family: "Material Symbols Rounded"; /* Rounded */
+}
+
+.sharp {
+  font-family: "Material Symbols Sharp"; /* Sharp */
+}
+
+.material-symbols-outlined {
+  cursor: pointer; /* Change to a hand cursor */
+  user-select: none; /* Prevent text selection */
+  display: inline-flex; /* Ensure proper alignment */
+  align-items: center;
+  justify-content: center;
+}
+
+.media-container img {
+  border-radius: 15px;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  position: relative !important;
+  max-width: var(--page-max-width) !important;
+  width: var(--page-width) !important;
+  box-sizing: content-box !important;
+}
+
+.gradient-text {
+  padding-top: 100px;
+  font-family: "Epilogue", sans-serif;
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 5em;
+  font-weight: bold;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(
+    to right,
+    #007aff,
+    #a200ff,
+    #f7007c,
+    #ff7a00
+  );
+  line-height: 92%;
+}
+
+.subtitle {
+  font-family: "Epilogue", sans-serif;
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 5em;
+  font-weight: bold;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: rgb(0, 0, 0);
+  line-height: 92%;
+  padding: 20px 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .gradient-text {
+    font-size: 2.8em;
+  }
+  .subtitle {
+    font-size: 2.8em;
+  }
+}
+
+.desc {
+  padding: 50px 0 !important;
+  font-family: "Epilogue", sans-serif;
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 1.3rem !important;
+  font-weight: 400 !important;
+  color: #919191;
+}
+
+/* Style for text animations */
+.changing-bottom-text {
+  opacity: 0;
+  transform: translateY(20px); /* Start off-screen */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  display: inline-block;
+  font-weight: 700;
+}
+
+/* Button Style */
+.btn {
+  border-radius: 52px;
+  padding: 24px 42px;
+  background-color: #f1f1f1;
+  font-weight: 700;
+  font-size: 2em;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background-color: #e1e1e1;
+}
+
+/* Visible text */
+.changing-bottom-text.visible {
+  opacity: 1;
+  transform: translateY(0); /* Final state, text in position */
+}
+
+/* Blinking dot effect */
+.blinking-dot {
+  font-weight: 700;
+  animation: blink 1s infinite step-start; /* Animation name, duration, and infinite loop */
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0; /* Make dot invisible at halfway point */
+  }
+}
+
+.btn-action {
+  /* border-radius: 52px !important; */
+  padding: 24px 42px !important;
+  background-color: #f1f1f1 !important;
+  display: inline-block !important;
+  overflow: hidden !important;
+}
+
+@media screen and (max-width: 768px) {
+  .changing-bottom-text {
+    font-size: 12pt;
+  }
+
+  .blinking-dot {
+    font-size: 12pt;
+  }
+
+  .btn-action {
+    padding: 12px 21px !important;
   }
   
-  /* Different Sizes */
-  .skeleton-text {
-    height: 20px;
-    width: 100%;
-  }
-  
-  .skeleton-button {
-    height: 40px;
-    width: 100px;
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  .skeleton-box {
-    height: 300px;
-    width: 100%;
-  }
-  
-  /* Hide Actual Content Initially */
-  .hidden {
-    display: none;
-  }
-  
-  /* Shimmer Effect */
-  @keyframes shimmer {
-    from {
-      background-position: -200% 0;
-    }
-    to {
-      background-position: 200% 0;
-    }
-  }
-  
+}

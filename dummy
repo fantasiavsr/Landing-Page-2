@@ -1,0 +1,12 @@
+// ** UI Panel Controls **
+    document.getElementById("zoomCamera").addEventListener("click", () => {
+        if (pivotGroup.scale.x === 1) {
+            pivotGroup.scale.set(1.5, 1.5, 1.5); // Scale up 2x
+        } else {
+            pivotGroup.scale.set(1, 1, 1); // Reset to default scale
+        }
+    });
+
+    document.getElementById("toggleRotation").addEventListener("click", () => {
+        isRotating = !isRotating;
+    });

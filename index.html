@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@@Anubi Creative Studio</title>
+    <title>@Zerotwo Creative Studio</title>
+    <link rel="icon" type="image/svg+xml" href="asset/zerotwologo.svg" />
+
     <link rel="stylesheet" href="style.css" />
     <!-- Link to your CSS file -->
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
@@ -19,12 +21,25 @@
       href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp"
+    />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/loaders/RGBELoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@latest/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
   </head>
   <body class="">
     <!-- Your website content goes here -->
@@ -36,7 +51,7 @@
             <div class="style_logoContainer">
               <a class="style_logoBox" href="/">
                 <img
-                  src="asset/anubilogo.svg"
+                  src="asset/zerotwologo.svg"
                   alt=""
                   fetchpriority="high"
                   width="64"
@@ -47,7 +62,7 @@
                 />
               </a>
               <a class="style_brand" href="/">
-                <div class="style_brandTitle" translate="no">Anubi</div>
+                <div class="style_brandTitle" translate="no">Zerotwo</div>
                 <div class="style_brandDescription">Creative Studio</div>
               </a>
             </div>
@@ -79,9 +94,9 @@
       <div class="style_pageWrapper">
         <div class="style_container">
           <section id="hero">
-            <div class="row">
+            <div class="row align-items-center">
               <!-- Left Column -->
-              <div class="col" style="max-width: 50%">
+              <div class="max-width col-12 col-md-6">
                 <!-- Skeleton for Title -->
                 <div
                   class="skeleton skeleton-text"
@@ -124,7 +139,7 @@
                   Web. <br />
                 </h1>
                 <h2 class="style_heroSubtitle hidden">
-                  Anubi is a creative studio specializing in art direction,
+                  Zerotwo is a creative studio specializing in art direction,
                   video production, and digital experiences, with a focus on CGI
                   and visual effects.
                 </h2>
@@ -148,12 +163,31 @@
               </div>
 
               <!-- Right Column (Skeleton for Model) -->
-              <div class="col" style="max-width: 50%">
+              <div
+                class="col-12 col-md-6 modelContainer"
+                style="max-width: 50%"
+              >
                 <div
                   class="skeleton skeleton-box"
                   style="height: 300px; width: 100%"
                 ></div>
                 <div id="modelContainer" class="hidden"></div>
+                <div class="ui-panel" id="uiPanel">
+                  <span
+                    class="material-symbols-outlined icon"
+                    id="zoomCamera"
+                    title="Zoom Camera"
+                  >
+                    search
+                  </span>
+                  <span
+                    class="material-symbols-outlined icon"
+                    id="toggleRotation"
+                    title="Toggle Rotation"
+                  >
+                    toggle_off
+                  </span>
+                </div>
               </div>
             </div>
           </section>
@@ -162,7 +196,7 @@
     </div>
 
     <div class="mb-4">
-      <div class="style_pageWrapper">
+      <div class="style_pageWrapper2">
         <div
           class="skeleton skeleton-box"
           style="height: 300px; width: 600px"
@@ -198,7 +232,7 @@
       </div>
     </div>
 
-    <div class="mb-4">
+    <div class="mb-5 pb-5">
       <div class="style_pageWrapper">
         <div class="style_container text-center">
           <h1 class="style_heroTitle2">
@@ -211,16 +245,56 @@
       </div>
     </div>
 
-    <div class="mb-4">
+    <div class="mb-5 pt-5">
       <div class="style_pageWrapper">
-        <div class="video-wrapper">
-          <video
-            autoplay
-            loop
-            muted
-            src="asset/video.webm"
-            style="width: 100%; height: auto"
-          ></video>
+        <div class="style_container">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-6 video-wrapper2">
+              <video
+                autoplay
+                loop
+                muted
+                src="asset/video1.webm"
+                class="w-100"
+              ></video>
+            </div>
+            <div
+              class="col-12 col-md-6 d-flex align-items-center justify-content-center"
+            >
+              <h1 class="style_heroTitle3">
+                <span class="changing-text">Videography.</span>
+                <span class="changing-text">Photography.</span>
+                <span class="changing-text">Multimedia.</span>
+                <span class="changing-text">Together.</span>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4 pt-5">
+      <div class="style_pageWrapper">
+        <div class="style_container">
+          <div class="style_inner">
+            <h1 class="style_heroTitle4">Get the highlights.</h1>
+            <button class="btn btn-light btn-rounded style_buttonTags2">
+              see more
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper2">
+        <div class="scrolling-wrapper">
+          <div class="image-wrapper">
+            <img src="asset/image1.jpg" alt="" class="img-fluid" />
+          </div>
+          <div class="image-wrapper">
+            <img src="asset/image2.jpg" alt="" class="img-fluid" />
+          </div>
         </div>
       </div>
     </div>
@@ -228,15 +302,48 @@
     <div class="mb-4">
       <div class="style_pageWrapper">
         <div class="style_container text-center">
-          <h1 class="style_heroTitle2">
-            <span>Animation.</span> <span>3D.</span> <span>CGI.</span> <br />
-            <span>Advertising.</span> <span>Illustration.</span> <br />
-            <span>Visual</span> <span>Effects.</span> <br />
-            <span>Creative</span> <span>Web.</span>
-          </h1>
+          <span class="gradient-text">Zero Intelligence.</span>
+          <span class="subtitle">AI-12vs12 possibilities.</span>
+          <span class="desc">available now.</span>
         </div>
       </div>
     </div>
+
+    <div class="mb-4">
+      <div class="style_pageWrapper2">
+        <div class="style_container">
+          <div class="modelContainer">
+            <div id="modelContainer2" class=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="" style="background-color: #ffffff">
+      <div class="style_pageWrapper">
+        <div class="style_container text-center align-items-center">
+          <span
+            class="desc"
+            style="font-size: 1.8em !important; color: rgb(104, 104, 104)"
+          >
+            Lets Work Together
+          </span>
+          <button class="btn btn-lg btn-light btn-action">
+            <span class="changing-bottom-text">Contact Us</span>
+            <span class="changing-bottom-text">Zerotwo</span
+            ><span class="blinking-dot">.</span>
+          </button>
+          <span class="desc">or reach us via email</span>
+          <span class="subtitle" style="line-height: 0%"
+            >ohayo@zerotwo<span style="color: red">.</span>ai</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <footer
+      style="height: 150px; width: 100%; background-color: #ffffff"
+    ></footer>
 
     <div class="mobileNav">
       <div class="style_pageWrapper">
@@ -268,6 +375,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="script.js"></script>
-    <!-- Link to your JavaScript file -->
+    <script src="lenis.js"></script>
   </body>
 </html>

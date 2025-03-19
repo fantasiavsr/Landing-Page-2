@@ -1,5 +1,5 @@
 const lenis = new Lenis({
-    duration: 1.2,  // Speed of scroll (higher = slower)
+    duration: 0.8,  // Speed of scroll (higher = slower)
     easing: (t) => 1 - Math.pow(1 - t, 3), // Smooth easing
     smooth: true,   // Enable smooth scrolling
     direction: "vertical", // Vertical scrolling (default)
