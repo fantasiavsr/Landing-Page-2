@@ -197,6 +197,12 @@ a {
   border-radius: 25px !important;
 }
 
+@media (max-width: 900px) {
+  .style_buttonTags {
+    margin-top: 16px;
+  }
+}
+
 @media (max-width: 720px) {
   .style_buttonTags2 {
     visibility: hidden;
@@ -429,48 +435,6 @@ header {
   width: 100%;
 }
 
-.image-wrapper {
-  margin: 0 auto 0 auto; /* Center it */
-  overflow: hidden;
-  border-radius: 24px;
-  transition: width 0.1s linear; /* Smooth continuous scaling */
-  flex-direction: column !important;
-  height: 100% !important;
-  max-width: var(--page-max-width) !important;
-  width: var(--page-width) !important;
-  box-sizing: content-box !important;
-  flex: 0 0 auto; /* Prevent resizing */
-}
-
-.image-wrapper img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.scrolling-wrapper {
-  display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  max-width: var(--page-max-width);
-  width: var(--page-width) !important;
-  gap: 20px;
-  white-space: nowrap;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
-
-  /* Hide scrollbar (Works on WebKit browsers like Chrome, Safari) */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Hide scrollbar for Firefox */
-  scrollbar-width: none;
-
-  /* Hide scrollbar for IE/Edge */
-  -ms-overflow-style: none;
-}
-
 .video-wrapper2 {
   max-width: 100%; /* Prevent it from exceeding the container */
   margin: 0 auto 0 auto; /* Center it */
@@ -502,7 +466,7 @@ header {
 @media screen and (max-width: 768px) {
   .video-wrapper {
     width: 100vw; /* Start small */
-     /* Prevent it from exceeding the container */
+    /* Prevent it from exceeding the container */
     margin: 0 auto 0 auto; /* Center it */
     /* overflow: hidden; */
     border-radius: 0px;
@@ -880,4 +844,112 @@ header {
   .btn-action {
     padding: 12px 21px !important;
   }
+}
+
+/* General container */
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Play button */
+.play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f1f1f3;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Progress bar container */
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f1f1f3;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+/* Progress bar (range input) */
+.progress-bar {
+  width: 100px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #777;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Dots container */
+.dots {
+  display: flex;
+  gap: 5px;
+  /* margin-top: 5px; */
+}
+
+/* Individual dots */
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #bbb;
+  border-radius: 50%;
+}
+
+/* Active dot */
+.dot.active {
+  width: 30px;
+  border-radius: 25px;
+  background: #555;
+}
+
+.image-wrapper {
+  margin: 0 auto 0 auto; /* Center it */
+  overflow: hidden;
+  border-radius: 24px;
+  transition: width 0.1s linear; /* Smooth continuous scaling */
+  flex-direction: column !important;
+  height: 60vh;
+  max-width: var(--page-max-width) !important;
+  width: var(--page-width) !important;
+  box-sizing: content-box !important;
+  flex: 0 0 auto; /* Prevent resizing */
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scrolling-wrapper {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  max-width: var(--page-max-width);
+  width: var(--page-width) !important;
+  gap: 20px;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  transition: scroll 0.5s ease-in-out;
+
+  /* Hide scrollbar (Works on WebKit browsers like Chrome, Safari) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+
+  /* Hide scrollbar for IE/Edge */
+  -ms-overflow-style: none;
 }

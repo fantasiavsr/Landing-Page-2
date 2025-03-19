@@ -329,6 +329,69 @@ document.addEventListener("DOMContentLoaded", function () {
     changeText(); // Initialize
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const scrollingWrapper = document.querySelector(".scrolling-wrapper");
+    const dots = document.querySelectorAll(".dot");
+    const playBtn = document.querySelector(".play-btn");
+    let currentIndex = 0;
+    let autoScroll;
+    let isPlaying = false; // Track autoplay state
+
+    // Function to smoothly scroll to a specific image
+    function scrollToImage(index) {
+        const imageWidth = document.querySelector(".image-wrapper").clientWidth;
+        scrollingWrapper.scrollTo({
+            left: index * (imageWidth + 20), // Adjust for the gap
+            behavior: "smooth" // Ensure smooth animation
+        });
+
+        // Update active dot
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[index].classList.add("active");
+
+        currentIndex = index;
+    }
+
+    // Auto-play functionality (loops through images)
+    function startAutoScroll() {
+        stopAutoScroll(); // Prevent multiple intervals
+        autoScroll = setInterval(() => {
+            currentIndex = (currentIndex + 1) % dots.length;
+            scrollToImage(currentIndex);
+        }, 3000); // Change every 3 seconds
+        isPlaying = true;
+        playBtn.innerHTML = `<span class="material-symbols-outlined filled" style="color: #555;">pause</span>`; // Change icon to pause
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScroll);
+        isPlaying = false;
+        playBtn.innerHTML = `<span class="material-symbols-outlined filled" style="color: #555;">play_arrow</span>`; // Change icon to play
+    }
+
+    // Toggle autoplay on play button click
+    playBtn.addEventListener("click", () => {
+        if (isPlaying) {
+            stopAutoScroll();
+        } else {
+            startAutoScroll();
+        }
+    });
+
+    // Dots navigation click
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            stopAutoScroll();
+            scrollToImage(index);
+        });
+    });
+
+    // Start auto-scroll initially
+    /* startAutoScroll(); */
+});
+
+
+
 
 
 
