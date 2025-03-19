@@ -55,7 +55,7 @@ html {
   font-family: var(--text);
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 a {
@@ -331,7 +331,7 @@ header {
   width: 600px; /* Start small */
   max-width: 100%; /* Prevent it from exceeding the container */
   margin: 0 auto 0 auto; /* Center it */
-  overflow: hidden;
+  /* overflow: hidden; */
   border-radius: 12px;
   transition: width 0.1s linear; /* Smooth continuous scaling */
 }
@@ -353,7 +353,7 @@ header {
     width: 100%; /* Start small */
     max-width: 100%; /* Prevent it from exceeding the container */
     margin: 0 auto 0 auto; /* Center it */
-    overflow: hidden;
+    /* overflow: hidden; */
     border-radius: 12px;
     transition: width 0.1s linear; /* Smooth continuous scaling */
   }

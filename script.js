@@ -83,8 +83,8 @@ document.addEventListener("scroll", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Disable scrolling completely
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
+    /* document.documentElement.style.overflow = "hidden"; */
+    /* document.body.style.overflow = "hidden"; */
     document.body.style.height = "100vh";
     document.body.style.position = "fixed";
     document.body.style.width = "100%";
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".hidden").forEach(el => el.classList.remove("hidden"));
 
         // Re-enable scrolling
-        document.documentElement.style.overflow = "";
-        document.body.style.overflow = "";
+        /* document.documentElement.style.overflow = ""; */
+        /* document.body.style.overflow = ""; */
         document.body.style.height = "";
         document.body.style.position = "";
         document.body.style.width = "";
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function initThreeJS() {
+function initThreeJS1() {
     const modelContainer = document.getElementById("modelContainer");
 
     // Ensure container is visible before setting up Three.js
@@ -175,9 +175,10 @@ function initThreeJS() {
     const pivotGroup = new THREE.Group();
     scene.add(pivotGroup);
 
-    loader.load("asset/plant.glb", (gltf) => {
+    loader.load("asset/iphone.glb", (gltf) => {
         const model = gltf.scene;
-        model.scale.set(0.5, 0.5, 0.5);
+        scaleValue = 0.5;
+        model.scale.set(scaleValue, scaleValue, scaleValue);
         model.traverse(n => {
             if (n.isMesh) {
                 n.castShadow = true;
@@ -209,6 +210,117 @@ function initThreeJS() {
         renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
     });
 }
+
+function initThreeJS() {
+    const modelContainer = document.getElementById("modelContainer");
+
+    if (!modelContainer) return;
+
+    // Define adjustable model scaling factor
+    let modelScaleFactor = 1.2; // Change this value to adjust the model size
+
+    let scene, camera, renderer, controls, pointLight, modelLocation = "asset/iphone.glb";
+
+    scene = new THREE.Scene();
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+    renderer.shadowMap.enabled = true;
+    modelContainer.appendChild(renderer.domElement);
+
+    camera = new THREE.PerspectiveCamera(
+        50,
+        modelContainer.clientWidth / modelContainer.clientHeight,
+        1,
+        1000
+    );
+    camera.position.set(0, -50, 500); // x = left/right, y = up/down, z = forward/backward
+
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.enableZoom = false;
+    controls.minPolarAngle = Math.PI / 4;
+    controls.maxPolarAngle = Math.PI / 3;
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    scene.add(ambientLight);
+
+    pointLight = new THREE.PointLight(0xffffff, 1.5);
+    pointLight.position.set(200, 200, 200);
+    scene.add(pointLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(200, 200, 200);
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
+
+    const pivotGroup = new THREE.Group();
+    scene.add(pivotGroup);
+
+    function loadModel() {
+        if (modelLocation) {
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                modelLocation,
+                (gltf) => {
+                    const model = gltf.scene;
+                    pivotGroup.add(model);
+                    fitModelToScene(model);
+                },
+                undefined,
+                (error) => {
+                    console.error("Error loading model:", error);
+                    createFallbackSphere();
+                }
+            );
+        } else {
+            createFallbackSphere();
+        }
+    }
+
+    function createFallbackSphere() {
+        const ballGeo = new THREE.SphereGeometry(100, 64, 64);
+        const ballMat = new THREE.MeshPhysicalMaterial({
+            color: 0xff0000,
+            metalness: 0.5,
+            roughness: 0.5,
+        });
+        const ballMesh = new THREE.Mesh(ballGeo, ballMat);
+        pivotGroup.add(ballMesh);
+        fitModelToScene(ballMesh);
+    }
+
+    function fitModelToScene(object) {
+        const box = new THREE.Box3().setFromObject(object);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+
+        object.position.sub(center);
+
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const fitSize = 200; // Desired model size
+        const scaleFactor = (fitSize / maxDim) * modelScaleFactor;
+        object.scale.set(scaleFactor, scaleFactor, scaleFactor);
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        pivotGroup.rotation.y += 0.005;
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener("resize", () => {
+        camera.aspect = modelContainer.clientWidth / modelContainer.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+    });
+
+    loadModel();
+    animate();
+}
+
+
 
 
 
