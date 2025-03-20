@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function getHdriPath(baseHdriName) {
     let hdriPath;
-    
+
     if (window.innerWidth >= 6000) {
         hdriPath = `asset/${baseHdriName}_6k.hdr`; // 6K for ultra-high-res screens
     } else if (window.innerWidth >= 3000) {
@@ -347,7 +347,7 @@ function initThreeJS(containerId, modelLocation, baseHdriName, modelScaleFactor,
 initThreeJS("modelContainer", "asset/iphone2.glb", "cayley_interior", 1.5, false);
 
 // Call initThreeJS with HDRI background OFF
-initThreeJS("modelContainer2", "asset/console.glb", "brown_photostudio", 3, true);
+initThreeJS("modelContainer2", "asset/console.glb", "cayley_interior", 3, false);
 
 
 
@@ -469,6 +469,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Start animation
     animateText();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const scrollingWrapper = document.querySelector(".scrolling-wrapper2");
+
+    let scrollSpeed = 1; // Adjust speed of scrolling
+    let scrollDirection = 1; // 1 = right, -1 = left
+
+    function autoScroll() {
+        if (scrollingWrapper) {
+            scrollingWrapper.scrollLeft += scrollSpeed * scrollDirection;
+            
+            // Reset scroll when reaching the end
+            if (scrollingWrapper.scrollLeft >= scrollingWrapper.scrollWidth - scrollingWrapper.clientWidth) {
+                scrollingWrapper.scrollLeft = 0; // Restart from the beginning
+            }
+        }
+        requestAnimationFrame(autoScroll); // Smooth looping
+    }
+
+    autoScroll(); // Start auto scrolling
 });
 
 

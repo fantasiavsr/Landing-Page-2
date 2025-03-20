@@ -427,11 +427,6 @@ header {
   /* position: relative; */
 }
 
-.model-container {
-  /* opacity: 0; */
-  /* transition: opacity 0.5s ease-in-out; */
-}
-
 @media screen and (max-width: 768px) {
   /* Adjust breakpoint as needed */
   #modelContainer {
@@ -1014,4 +1009,60 @@ header {
 
   /* Hide scrollbar for IE/Edge */
   -ms-overflow-style: none;
+}
+
+.scrolling-wrapper2 {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 20px;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  width: 100vw; /* Ensure it takes full width */
+  min-width: 100%;
+  padding-bottom: 30px; /* Adds space between cards and scrollbar */
+}
+
+.card {
+  flex: 0 0 auto; /* Prevent cards from shrinking */
+  width: 18rem; /* Ensure cards maintain their width */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+/* Scrollbar container */
+::-webkit-scrollbar {
+  width: 6px; /* Thin scrollbar */
+  height: 6px; /* Thin scrollbar for horizontal scrolling */
+}
+
+/* Scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: transparent; /* Hide track for a cleaner look */
+}
+
+/* Scrollbar thumb (draggable part) */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2); /* Subtle dark thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4); /* Darker when hovered */
+}
+
+.card-resize {
+  width: 80% !important; /* Adjusts the card width to 80% of its parent */
+  max-width: 300px !important; /* Prevents it from getting too large */
+  padding: 25px 25px;
+}
+
+.card-title {
+  font-size: 1.5rem !important;
+  font-weight: 700;
+  padding-bottom: 10px;
 }
