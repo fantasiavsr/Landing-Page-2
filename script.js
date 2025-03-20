@@ -175,7 +175,7 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     if (window.innerWidth < 768) {
         controls.enableDamping = false;
         controls.enableZoom = false;
-        controls.enabled = false;  // Completely disable OrbitControls on mobile
+       /*  controls.enabled = false; */  // Completely disable OrbitControls on mobile
     }
 
     // 3. Adjust lighting for mobile
@@ -305,10 +305,10 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
 
 
 // Call initThreeJS for the first model
-initThreeJS("modelContainer", "asset/iphone.glb", "asset/cayley_interior_1k.hdr", 1.5);
+initThreeJS("modelContainer", "asset/iphone.glb", "asset/cayley_interior_512.hdr", 1.5);
 
 // Call initThreeJS for the second model
-initThreeJS("modelContainer2", "asset/console.glb", "asset/cayley_interior_1k.hdr", 3);
+initThreeJS("modelContainer2", "asset/console.glb", "asset/cayley_interior_512.hdr", 3);
 
 
 document.addEventListener("DOMContentLoaded", function () {
