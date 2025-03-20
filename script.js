@@ -289,7 +289,7 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
 initThreeJS("modelContainer", "asset/iphone.glb", "asset/cayley_interior_1k.hdr", 1.5);
 
 // Call initThreeJS for the second model
-initThreeJS("modelContainer2", "asset/console.glb", "asset/cayley_interior_1k.hdr", 3);
+/* initThreeJS("modelContainer2", "asset/console.glb", "asset/cayley_interior_1k.hdr", 3); */
 
 
 document.addEventListener("DOMContentLoaded", function () {
