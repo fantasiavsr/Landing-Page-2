@@ -390,6 +390,28 @@ document.addEventListener("DOMContentLoaded", function () {
     /* startAutoScroll(); */
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const textSpans = document.querySelectorAll(".desc2 span");
+    let index = 0;
+
+    function animateText() {
+        // Remove active class from all spans
+        textSpans.forEach(span => span.classList.remove("active"));
+
+        // Add active class to the current span
+        textSpans[index].classList.add("active");
+
+        // Move to the next span, looping back to the start
+        index = (index + 1) % textSpans.length;
+
+        // Call function again after delay
+        setTimeout(animateText, 2000); // Adjust time as needed
+    }
+
+    // Start animation
+    animateText();
+});
+
 
 
 
