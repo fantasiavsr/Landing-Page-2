@@ -599,12 +599,12 @@ header {
   height: auto;
   object-fit: contain;
   transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
-  transition: transform 0.5s ease-in-out; /* Smooth scale effect */
+  /* transition: transform 0.5s ease-in-out; */ /* Smooth scale effect */
 }
 
 .brand-grid img:hover {
   opacity: 1; /* Reduce opacity on hover */
-  transform: scale(1.1); /* Slightly increase size */
+  /* transform: scale(1.1); */ /* Slightly increase size */
 }
 
 /* Responsive Adjustments */
@@ -855,8 +855,8 @@ header {
 
 /* Play button */
 .play-btn {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: #f1f1f3;
   border: none;
@@ -873,42 +873,41 @@ header {
   flex-direction: column;
   align-items: center;
   background: #f1f1f3;
-  padding: 10px 20px;
-  border-radius: 20px;
-}
-
-/* Progress bar (range input) */
-.progress-bar {
-  width: 100px;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 6px;
-  background: #777;
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
+  border-radius: 54px;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0px 25px;
+  height: 60px;
 }
 
 /* Dots container */
 .dots {
   display: flex;
-  gap: 5px;
-  /* margin-top: 5px; */
+  gap: 8px;
 }
 
 /* Individual dots */
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   background: #bbb;
   border-radius: 50%;
+  transition: width 0.3s ease, border-radius 0.3s ease, background 0.3s ease;
 }
 
-/* Active dot */
+/* Active dot (gradual animation) */
 .dot.active {
   width: 30px;
   border-radius: 25px;
   background: #555;
+}
+
+/* Hover effect */
+.dot:hover {
+  width: 30px;
+  border-radius: 25px;
+  background: #777; /* Slightly different hover color */
 }
 
 .image-wrapper {
@@ -917,7 +916,7 @@ header {
   border-radius: 24px;
   transition: width 0.1s linear; /* Smooth continuous scaling */
   flex-direction: column !important;
-  height: 60vh;
+  height: 80vh;
   max-width: var(--page-max-width) !important;
   width: var(--page-width) !important;
   box-sizing: content-box !important;
@@ -934,13 +933,17 @@ header {
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
-  max-width: var(--page-max-width);
-  width: var(--page-width) !important;
+  /* max-width: var(--page-max-width); */
+  /* width: var(--page-width) !important; */
   gap: 20px;
   white-space: nowrap;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
   transition: scroll 0.5s ease-in-out;
+
+  padding-right: 7.4vw;
+  padding-left: 7.4vw;
+  /* margin-left: calc(-1 * (var(--page-width) - 100vw)); */
 
   /* Hide scrollbar (Works on WebKit browsers like Chrome, Safari) */
   &::-webkit-scrollbar {

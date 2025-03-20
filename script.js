@@ -360,13 +360,13 @@ document.addEventListener("DOMContentLoaded", function () {
             scrollToImage(currentIndex);
         }, 3000); // Change every 3 seconds
         isPlaying = true;
-        playBtn.innerHTML = `<span class="material-symbols-outlined filled" style="color: #555;">pause</span>`; // Change icon to pause
+        playBtn.innerHTML = `<span class="material-symbols-outlined filled" style="color: #555; font-size:35px">pause</span>`; // Change icon to pause
     }
 
     function stopAutoScroll() {
         clearInterval(autoScroll);
         isPlaying = false;
-        playBtn.innerHTML = `<span class="material-symbols-outlined filled" style="color: #555;">play_arrow</span>`; // Change icon to play
+        playBtn.innerHTML = `<span class="material-symbols-outlined filled" style="color: #555; font-size:35px">play_arrow</span>`; // Change icon to play
     }
 
     // Toggle autoplay on play button click
