@@ -417,7 +417,7 @@ document.addEventListener("DOMContentLoaded", function () {
         autoScroll = setInterval(() => {
             currentIndex = (currentIndex + 1) % dots.length;
             scrollToImage(currentIndex);
-        }, 3000); // Change every 3 seconds
+        }, 2000); // Change every 3 seconds
         isPlaying = true;
         playBtn.innerHTML = `<span class="material-symbols-outlined filled" style="color: #555; font-size:35px">pause</span>`; // Change icon to pause
     }

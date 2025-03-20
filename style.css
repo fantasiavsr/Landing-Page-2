@@ -213,6 +213,9 @@ a {
   .style_buttonTags2 {
     visibility: hidden;
   }
+  .image-wrapper {
+    height: 50vh !important;
+  }
 }
 
 .style_header,
@@ -247,7 +250,7 @@ header {
   left: 0;
   width: 100%;
   transition: transform 0.3s ease-in-out;
-  z-index: 1000;
+  z-index: 30000 !important;
 }
 
 .style_pageWrapper {
@@ -792,12 +795,36 @@ header {
   padding: 20px 0 !important;
 }
 
+.subtitle2 {
+  font-family: "Epilogue", sans-serif;
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 5em;
+  font-weight: bold;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: rgb(0, 0, 0);
+  line-height: 92%;
+  padding: 20px 0 !important;
+}
+
+
 @media screen and (max-width: 768px) {
   .gradient-text {
     font-size: 2.8em;
   }
   .subtitle {
     font-size: 2.8em;
+  }
+  .subtitle2 {
+    font-size: 2.8em;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  .subtitle2 {
+    font-size: 1.6em;
   }
 }
 
@@ -991,7 +1018,7 @@ header {
 
 .scrolling-wrapper {
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   /* max-width: var(--page-max-width); */
   /* width: var(--page-width) !important; */
