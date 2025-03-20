@@ -128,28 +128,19 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     if (!modelContainer) return;
 
     modelScaleFactor = modelScaleFactor;
-    let scene, camera, sharedRenderer, controls, pointLight;
+    let scene, camera, renderer, controls, pointLight;
     let isRotating = true; // Rotation state
 
     scene = new THREE.Scene();
 
-    if (!sharedRenderer) {
-        sharedRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        sharedRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        sharedRenderer.shadowMap.enabled = true;
-        sharedRenderer.outputEncoding = THREE.sRGBEncoding;
-        sharedRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-        sharedRenderer.toneMappingExposure = 1.25;
-    }
-
-    sharedRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    sharedRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    sharedRenderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
-    sharedRenderer.shadowMap.enabled = true;
-    sharedRenderer.outputEncoding = THREE.sRGBEncoding;
-    sharedRenderer.toneMapping = THREE.ACESFilmicToneMapping;
-    sharedRenderer.toneMappingExposure = 1.25;
-    modelContainer.appendChild(sharedRenderer.domElement);
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
+    modelContainer.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(
         50,
@@ -159,7 +150,7 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     );
     camera.position.set(0, -50, 500);
 
-    controls = new THREE.OrbitControls(camera, sharedRenderer.domElement);
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.enableZoom = false;
     controls.minPolarAngle = Math.PI / 4;
@@ -174,6 +165,25 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
 
     const pivotGroup = new THREE.Group();
     scene.add(pivotGroup);
+
+    // 1. Disable shadows for mobile
+    if (window.innerWidth < 768) {
+        renderer.shadowMap.enabled = false;
+    }
+
+    // 2. Optimize controls for mobile
+    if (window.innerWidth < 768) {
+        controls.enableDamping = false;
+        controls.enableZoom = false;
+        controls.enabled = false;  // Completely disable OrbitControls on mobile
+    }
+
+    // 3. Adjust lighting for mobile
+    if (window.innerWidth < 768) {
+        ambientLight.intensity = 0.8;
+        pointLight.intensity = 1.0;
+        renderer.shadowMap.enabled = false;
+    }
 
     // Load HDR Environment
     new THREE.RGBELoader().load(mipmapEnvLocation, function (hdrmap) {
@@ -265,14 +275,14 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
         }
 
         controls.update();
-        sharedRenderer.render(scene, camera);
+        renderer.render(scene, camera);
     }
 
     // Resize Handling
     window.addEventListener('resize', () => {
         const width = modelContainer.clientWidth;
         const height = modelContainer.clientHeight;
-        sharedRenderer.setSize(width, height);
+        renderer.setSize(width, height);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
     });
