@@ -128,19 +128,28 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     if (!modelContainer) return;
 
     modelScaleFactor = modelScaleFactor;
-    let scene, camera, renderer, controls, pointLight;
+    let scene, camera, sharedRenderer, controls, pointLight;
     let isRotating = true; // Rotation state
 
     scene = new THREE.Scene();
 
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
-    renderer.shadowMap.enabled = true;
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
-    modelContainer.appendChild(renderer.domElement);
+    if (!sharedRenderer) {
+        sharedRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        sharedRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        sharedRenderer.shadowMap.enabled = true;
+        sharedRenderer.outputEncoding = THREE.sRGBEncoding;
+        sharedRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+        sharedRenderer.toneMappingExposure = 1.25;
+    }
+
+    sharedRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    sharedRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    sharedRenderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+    sharedRenderer.shadowMap.enabled = true;
+    sharedRenderer.outputEncoding = THREE.sRGBEncoding;
+    sharedRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+    sharedRenderer.toneMappingExposure = 1.25;
+    modelContainer.appendChild(sharedRenderer.domElement);
 
     camera = new THREE.PerspectiveCamera(
         50,
@@ -150,7 +159,7 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     );
     camera.position.set(0, -50, 500);
 
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls = new THREE.OrbitControls(camera, sharedRenderer.domElement);
     controls.enableDamping = true;
     controls.enableZoom = false;
     controls.minPolarAngle = Math.PI / 4;
@@ -256,14 +265,14 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
         }
 
         controls.update();
-        renderer.render(scene, camera);
+        sharedRenderer.render(scene, camera);
     }
 
     // Resize Handling
     window.addEventListener('resize', () => {
         const width = modelContainer.clientWidth;
         const height = modelContainer.clientHeight;
-        renderer.setSize(width, height);
+        sharedRenderer.setSize(width, height);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
     });
@@ -289,7 +298,7 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
 initThreeJS("modelContainer", "asset/iphone.glb", "asset/cayley_interior_1k.hdr", 1.5);
 
 // Call initThreeJS for the second model
-/* initThreeJS("modelContainer2", "asset/console.glb", "asset/cayley_interior_1k.hdr", 3); */
+initThreeJS("modelContainer2", "asset/console.glb", "asset/cayley_interior_1k.hdr", 3);
 
 
 document.addEventListener("DOMContentLoaded", function () {
