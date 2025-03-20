@@ -66,7 +66,7 @@ document.addEventListener("scroll", function () {
         const wordPosition = word.getBoundingClientRect().top;
 
         // Dynamically adjust thresholds based on index
-        const baseThreshold = 1; // Starting threshold
+        const baseThreshold = 1.1; // Starting threshold
         const step = 0.05; // How much each word's threshold changes
 
         const threshold1 = windowHeight * (baseThreshold - index * step);

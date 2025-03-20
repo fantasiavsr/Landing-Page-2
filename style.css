@@ -177,6 +177,12 @@ a {
   transform: translateY(0); /* Final state */
 }
 
+/* Make text visible when hovering each span */
+.style_heroTitle2 span:hover {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
 .style_heroSubtitle {
   font-family: "Epilogue", sans-serif;
   font-optical-sizing: auto !important;
