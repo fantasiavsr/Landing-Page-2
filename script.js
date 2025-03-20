@@ -123,6 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000); // Simulating 2s loading time
 });
 
+let modelsLoaded = 0;
+const totalModels = 2; // Number of models to load
+
 function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFactor) {
     const modelContainer = document.getElementById(containerId);
     if (!modelContainer) return;
@@ -136,7 +139,7 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
-    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.enabled = window.innerWidth >= 768; // Disable shadows for mobile
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
@@ -151,41 +154,24 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     camera.position.set(0, -50, 500);
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
+    controls.enableDamping = window.innerWidth >= 768; // Disable damping on mobile
+    /* controls.enableZoom = window.innerWidth >= 768; */ // Disable zoom on mobile
     controls.enableZoom = false;
+    controls.enabled = window.innerWidth >= 768; // Completely disable OrbitControls on mobile
     controls.minPolarAngle = Math.PI / 4;
     controls.maxPolarAngle = Math.PI / 3;
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, window.innerWidth >= 768 ? 1.2 : 0.8);
     scene.add(ambientLight);
 
-    pointLight = new THREE.PointLight(0xffffff, 1.5);
+    pointLight = new THREE.PointLight(0xffffff, window.innerWidth >= 768 ? 1.5 : 1.0);
     pointLight.position.set(200, 200, 200);
     scene.add(pointLight);
 
     const pivotGroup = new THREE.Group();
     scene.add(pivotGroup);
 
-    // 1. Disable shadows for mobile
-    if (window.innerWidth < 768) {
-        renderer.shadowMap.enabled = false;
-    }
-
-    // 2. Optimize controls for mobile
-    if (window.innerWidth < 768) {
-        controls.enableDamping = false;
-        controls.enableZoom = false;
-       /*  controls.enabled = false; */  // Completely disable OrbitControls on mobile
-    }
-
-    // 3. Adjust lighting for mobile
-    if (window.innerWidth < 768) {
-        ambientLight.intensity = 0.8;
-        pointLight.intensity = 1.0;
-        renderer.shadowMap.enabled = false;
-    }
-
-    // Load HDR Environment
+    // Load HDRI before models
     new THREE.RGBELoader().load(mipmapEnvLocation, function (hdrmap) {
         hdrmap.mapping = THREE.EquirectangularReflectionMapping;
         scene.environment = hdrmap;
@@ -209,6 +195,16 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
                     });
                     pivotGroup.add(model);
                     fitModelToScene(model);
+                    modelContainer.style.opacity = "0"; // Hide initially
+                    modelsLoaded++;
+
+                    // Display models only when all are loaded
+                    if (modelsLoaded === totalModels) {
+                        document.querySelectorAll(".model-container").forEach(el => {
+                            el.style.opacity = "1";
+                            el.classList.remove("hidden");
+                        });
+                    }
                 },
                 undefined,
                 (error) => {
@@ -250,14 +246,11 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
 
         object.scale.set(scaleFactor, scaleFactor, scaleFactor);
         object.position.y += 50;
-
-        pivotGroup.add(object);
     }
 
     let rotationDirection = 1;
     const minRotation = -Math.PI / 0.5;
     const maxRotation = Math.PI / 0.5;
-
     const rotationSpeed = 0.002;
 
     function animate() {
@@ -287,10 +280,10 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
         camera.updateProjectionMatrix();
     });
 
-    // ** UI Panel Controls **
+    // UI Panel Controls
     document.getElementById("zoomCamera").addEventListener("click", () => {
         if (pivotGroup.scale.x === 1) {
-            pivotGroup.scale.set(1.5, 1.5, 1.5); // Scale up 2x
+            pivotGroup.scale.set(1.5, 1.5, 1.5); // Scale up
         } else {
             pivotGroup.scale.set(1, 1, 1); // Reset to default scale
         }
@@ -303,12 +296,34 @@ function initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFa
     animate();
 }
 
+// Detect screen size and set HDRI resolution
+let hdriPath;
+if (window.innerWidth >= 1920) {
+    hdriPath = "asset/cayley_interior_4k.hdr"; // 4K for high-res screens
+} else if (window.innerWidth >= 768) {
+    hdriPath = "asset/cayley_interior_1k.hdr"; // 1K for desktops
+} else {
+    hdriPath = "asset/cayley_interior_512.hdr"; // 512px for mobile
+}
 
-// Call initThreeJS for the first model
-initThreeJS("modelContainer", "asset/iphone.glb", "asset/cayley_interior_512.hdr", 1.5);
+// Preload both models before displaying them
+let preloadCounter = 0;
+const totalPreloadModels = 2;
 
-// Call initThreeJS for the second model
-initThreeJS("modelContainer2", "asset/console.glb", "asset/cayley_interior_512.hdr", 3);
+function preloadModel(containerId, modelLocation, mipmapEnvLocation, modelScaleFactor) {
+    initThreeJS(containerId, modelLocation, mipmapEnvLocation, modelScaleFactor);
+    preloadCounter++;
+    if (preloadCounter === totalPreloadModels) {
+        document.querySelectorAll(".model-container").forEach(el => {
+            el.style.opacity = "1"; // Show models when all are preloaded
+        });
+    }
+}
+
+// Call models for preloading
+preloadModel("modelContainer", "asset/iphone.glb", hdriPath, 1.5);
+preloadModel("modelContainer2", "asset/console.glb", hdriPath, 3);
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

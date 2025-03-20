@@ -426,6 +426,11 @@ header {
   /* position: relative; */
 }
 
+.model-container {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
 @media screen and (max-width: 768px) {
   /* Adjust breakpoint as needed */
   #modelContainer {
