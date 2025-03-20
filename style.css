@@ -303,7 +303,8 @@ header {
   padding-right: 24px;
   padding-bottom: 0px;
   padding-left: 24px;
-  width: var(--page-width);
+  /* width: var(--page-width); */
+  width: 100vw;
   box-sizing: content-box !important;
   /* margin: 20px auto !important;  */ /* Adjust as needed */
 }
@@ -421,14 +422,14 @@ header {
 }
 
 #modelContainer2 {
- /*  width: 100vw; */
+  /*  width: 100vw; */
   height: 500px;
   /* position: relative; */
 }
 
 .model-container {
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  /* opacity: 0; */
+  /* transition: opacity 0.5s ease-in-out; */
 }
 
 @media screen and (max-width: 768px) {
@@ -832,7 +833,6 @@ header {
   opacity: 1;
   color: black;
 }
-
 
 @media screen and (max-width: 768px) {
   .desc2 {
